@@ -4,7 +4,6 @@ from function import Color
 
 SYSTEM = platform.system()
 CLEAR = "cls" if SYSTEM.lower() == "windows" else "clear"
-print(CLEAR)
 
 OPC_MP3 = 1
 OPC_MP4 = 2
@@ -29,8 +28,7 @@ def main():
             download_mp3()
         elif option == OPC_MP4:
             os.system(CLEAR)
-            # download_mp4()
-            Color.print_warning("mp4 aun esta en mantenimiento ...")
+            download_mp4()
         elif option == OPC_SALIR:
             start = False
         else:
@@ -54,4 +52,7 @@ def is_option_invalid(option: str) -> bool:
 
 # TODO: Excecute Main
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:
+        Color.print_fail("-> Cerraste la aplicación a la fuerza ...")

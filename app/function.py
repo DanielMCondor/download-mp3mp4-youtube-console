@@ -13,7 +13,7 @@ class Color():
         print("{}[+] {} {}".format(OK, message, RESET))
     
     def print_warning(message: str):
-        print("{}[/] {} {}".format(WARNING, message, RESET))
+        print("{}[?] {} {}".format(WARNING, message, RESET))
 
     def print_fail(message: str):
         print("{}[-] {} {}".format(FAIL, message, RESET))
