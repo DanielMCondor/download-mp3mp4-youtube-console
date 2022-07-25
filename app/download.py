@@ -1,6 +1,11 @@
-import re, sys
+import re, sys, os
 from pytube import YouTube
-from function import BLUE
+from pytube.exceptions import VideoUnavailable, RegexMatchError
+from function import BLUE, Color
+
+PATH_SAVE = "/media/daniel/Daniel/personal/"
+PATH_MP3 = f"{PATH_SAVE}music"
+PATH_MP4 = f"{PATH_SAVE}video"
 
 def connect_to_youtube():
     url = str(input("Ingrese la url del video que quiere descargar: "))
@@ -9,7 +14,37 @@ def connect_to_youtube():
     return yt
 
 def download_mp3():
-    ...
+    validateYesOrNo = ["s", "n"]
+    start = True
+    while start:
+        try:
+            Color.print_info("¿Quieres continuar? (S/N)")
+            response = str(input(">> "))
+            if not validateYesOrNo.__contains__(response.lower()):
+                Color.print_fail("Ingresa una opción válida ...")
+                continue
+            else:
+                start = response.lower() == "s"
+                if not start:
+                    break
+
+            yt = connect_to_youtube()
+            if yt is None: continue
+            Color.print_ok("Cargando ...")
+            video = yt.streams.filter(only_audio=True).first()
+            out_file = video.download(output_path=PATH_MP3)
+            base, _ = os.path.splitext(out_file)
+            new_file = f"{base}.mp3"
+            os.rename(out_file, new_file)
+            Color.print_ok(f"{yt.title} se ha descargado con exito.")
+            start = False
+
+        except VideoUnavailable:
+            Color.print_fail("La url del video no esta disponible ...")
+            continue
+        except RegexMatchError:
+            Color.print_fail("La url ingresada no es válida ...")
+            continue
 
 def download_mp4():
     ...
