@@ -1,11 +1,12 @@
 import re, sys
 from pytube import YouTube
-from clint.textui import colored, puts
+from function import BLUE
 
 def connect_to_youtube():
     url = str(input("Ingrese la url del video que quiere descargar: "))
     if is_url_invalid(url): return None
     yt = YouTube(url=url, on_progress_callback=on_progress_callback)
+    return yt
 
 def download_mp3():
     ...
@@ -21,7 +22,8 @@ def on_progress_callback(video, chunck, bytes_remaining):
     percent = ('{0:.1f}').format(current*100)
     progress = int(50*current)
     status = '█' * progress + '-' * (50 - progress)
-    sys.stdout.write(' ↳ {download} |{bar}| {percent}%\r'.format(download=colored.blue("Descargando ..."), bar=status, percent=percent))
+    # sys.stdout.write(' ↳ {download} |{bar}| {percent}%\r'.format(download=colored.blue("Descargando ..."), bar=status, percent=percent))
+    sys.stdout.write(' ↳ {download} |{bar}| {percent}%\r'.format(download=BLUE+"Descargando ...", bar=status, percent=percent))
     sys.stdout.flush()
 
 # TODO: Validaciones
