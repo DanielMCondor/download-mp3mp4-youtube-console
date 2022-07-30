@@ -17,3 +17,6 @@ comandos.
 1. Clonar el repositorio
 2. Instalar las librerias: `pip install -r requirements.txt`
 3. Inicie la aplicación: `python3 app/main.py`
+
+## :large_blue_circle: Autor
+1. [DanielMCondor](https://github.com/DanielMCondor)
