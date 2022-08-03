@@ -1,4 +1,4 @@
-<p align="center"> <img width="400" height="200" src="https://user-images.githubusercontent.com/81319650/181954470-1423479a-8f49-4391-b30e-49dff0033d0e.gif"></p>
+<p align="center"> <img src="https://user-images.githubusercontent.com/81319650/181954470-1423479a-8f49-4391-b30e-49dff0033d0e.gif"></p>
 <h2 align="center" size="14px"><b>YouTube - DanielMCondor</b></h1>
 
 # Descargar musica mp3 :headphones: y videos mp4 :clapper: [YouTube]
