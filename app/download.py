@@ -1,9 +1,9 @@
 import re, sys, os
 from pytube import YouTube
 from pytube.exceptions import VideoUnavailable, RegexMatchError
-from function import BLUE, Color
+from function import BLUE, Print
 
-PATH_SAVE = "/media/daniel/Daniel/personal/"
+PATH_SAVE = "/media/daniel/Daniel1/personal/"
 PATH_MP3 = f"{PATH_SAVE}music"
 PATH_MP4 = f"{PATH_SAVE}video"
 
@@ -14,14 +14,15 @@ def connect_to_youtube():
     return yt
 
 def download_mp3():
+    Print.banner()
     validateYesOrNo = ["s", "n"]
     start = True
     while start:
         try:
-            Color.print_info("¿Quieres continuar? (S/N)")
+            Print.info("¿Quieres continuar? (S/N)")
             response = str(input(">> "))
             if not validateYesOrNo.__contains__(response.lower()):
-                Color.print_fail("Ingresa una opción válida ...")
+                Print.fail("Ingresa una opción válida ...")
                 continue
             else:
                 start = response.lower() == "s"
@@ -30,31 +31,32 @@ def download_mp3():
 
             yt = connect_to_youtube()
             if yt is None: continue
-            Color.print_ok("Cargando ...")
+            Print.ok("Cargando ...")
             video = yt.streams.filter(only_audio=True).first()
             out_file = video.download(output_path=PATH_MP3)
             base, _ = os.path.splitext(out_file)
             new_file = f"{base}.mp3"
             os.rename(out_file, new_file)
-            Color.print_ok(f"{yt.title} se ha descargado con exito.")
+            Print.ok(f"{yt.title} se ha descargado con exito.")
             start = False
 
         except VideoUnavailable:
-            Color.print_fail("La url del video no esta disponible ...")
+            Print.fail("La url del video no esta disponible ...")
             continue
         except RegexMatchError:
-            Color.print_fail("La url ingresada no es válida ...")
+            Print.fail("La url ingresada no es válida ...")
             continue
 
 def download_mp4():
+    Print.banner()
     validateYesOrNo = ["s", "n"]
     start = True
     while start:
         try:
-            Color.print_info("¿Quieres continuar? (S/N)")
+            Print.info("¿Quieres continuar? (S/N)")
             response = str(input(">> "))
             if not validateYesOrNo.__contains__(response.lower()):
-                Color.print_fail("Ingresa una opción válida ...")
+                Print.fail("Ingresa una opción válida ...")
                 continue
             else:
                 start = response.lower() == "s"
@@ -63,16 +65,16 @@ def download_mp4():
 
             yt = connect_to_youtube()
             if yt is None: continue
-            Color.print_ok("Cargando ...")
+            Print.ok("Cargando ...")
             yt.streams.get_highest_resolution().download(output_path=PATH_MP4)
-            Color.print_ok(f"{yt.title} se ha descargado con exito.")
+            Print.ok(f"{yt.title} se ha descargado con exito.")
             start = False
 
         except VideoUnavailable:
-            Color.print_fail("La url del video no esta disponible ...")
+            Print.fail("La url del video no esta disponible ...")
             continue
         except RegexMatchError:
-            Color.print_fail("La url ingresada no es válida ...")
+            Print.fail("La url ingresada no es válida ...")
             continue
 
 # TODO: callback
@@ -85,7 +87,7 @@ def on_progress_callback(video, chunck, bytes_remaining):
     sys.stdout.write(' ↳ {download} |{bar}| {percent}%\r'.format(download=BLUE+"Descargando ...", bar=status, percent=percent))
     sys.stdout.flush()
 
-# TODO: Validaciones
+# TODO: validations
 def is_url_invalid(url: str):
     regex = re.compile(
         r'^https?://'  # http:// or https://

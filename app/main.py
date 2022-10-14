@@ -1,14 +1,9 @@
-import platform, os
 from download import download_mp3, download_mp4
-from function import Color
-
-SYSTEM = platform.system()
-CLEAR = "cls" if SYSTEM.lower() == "windows" else "clear"
+from function import Print, Clear
 
 OPC_MP3 = 1
 OPC_MP4 = 2
 OPC_SALIR = 0
-
 
 def menu():
     return f""" Youtube - DanielMCondor
@@ -19,33 +14,36 @@ def menu():
 def main():
     start = True
     while start:
+        Print.banner()
         print(menu())
+
         option = input("Ingresa una opción: ")
         if is_option_invalid(option): continue
         option = int(option)
         if option == OPC_MP3:
-            os.system(CLEAR)
+            Clear()
             download_mp3()
         elif option == OPC_MP4:
-            os.system(CLEAR)
+            Clear()
             download_mp4()
         elif option == OPC_SALIR:
             start = False
         else:
-            Color.print_fail("Ingrese una opción válida ...")
+            Print.fail("Ingrese una opción válida ...")
         input("Presion enter para continuar ...")
-        os.system(CLEAR)
-    Color.print_ok("Gracias por tu visita ...")
-    Color.print_info("Siempre me dara gusto verte ...")
+        Clear()
+    Print.banner()
+    Print.ok("Gracias por tu visita ...")
+    Print.info("Siempre me dara gusto verte ...")
 
 # TODO: Validations
 def is_option_invalid(option: str) -> bool:
 
     if not option.isnumeric():
-        os.system(CLEAR)
-        Color.print_fail("Ingrese una opción válida ...")
+        Clear()
+        Print.fail("Ingrese una opción válida ...")
         input("Presiona enter para continuar ...")
-        os.system(CLEAR)
+        Clear()
         return True
 
     return False
@@ -54,5 +52,5 @@ def is_option_invalid(option: str) -> bool:
 if __name__ == "__main__":
     try:
         main()
-    except:
-        Color.print_fail("-> Cerraste la aplicación a la fuerza ...")
+    except KeyboardInterrupt:
+        Print.fail("-> Cerraste la aplicación a la fuerza ...")
