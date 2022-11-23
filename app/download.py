@@ -3,7 +3,7 @@ from pytube import YouTube
 from pytube.exceptions import VideoUnavailable, RegexMatchError
 from function import BLUE, Print
 
-PATH_SAVE = "/media/daniel/Daniel1/personal/"
+PATH_SAVE = "/media/daniel/personal/"
 PATH_MP3 = f"{PATH_SAVE}music"
 PATH_MP4 = f"{PATH_SAVE}video"
 
